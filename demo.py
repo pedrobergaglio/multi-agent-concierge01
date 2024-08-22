@@ -79,7 +79,7 @@ def stock_lookup_agent_factory(state: dict) -> OpenAIAgent:
 
     return OpenAIAgent.from_tools(
         tools,
-        llm=OpenAI(model="gpt-4o"),
+        llm=OpenAI(model="gpt-4o-mini"),
         system_prompt=system_prompt,
     )
 
@@ -130,7 +130,7 @@ def auth_agent_factory(state: dict) -> OpenAIAgent:
 
     return OpenAIAgent.from_tools(
         tools,
-        llm=OpenAI(model="gpt-4o"),
+        llm=OpenAI(model="gpt-4o-mini"),
         system_prompt=system_prompt,
     )
 
@@ -184,7 +184,7 @@ def account_balance_agent_factory(state: dict) -> OpenAIAgent:
 
     return OpenAIAgent.from_tools(
         tools,
-        llm=OpenAI(model="gpt-4o"),
+        llm=OpenAI(model="gpt-4o-mini"),
         system_prompt=system_prompt,
     )
 
@@ -242,7 +242,7 @@ def transfer_money_agent_factory(state: dict) -> OpenAIAgent:
 
     return OpenAIAgent.from_tools(
         tools,
-        llm=OpenAI(model="gpt-4o"),
+        llm=OpenAI(model="gpt-4o-mini"),
         system_prompt=system_prompt,
     )
 
@@ -272,7 +272,7 @@ def concierge_agent_factory(state: dict) -> OpenAIAgent:
 
     return OpenAIAgent.from_tools(
         tools,
-        llm=OpenAI(model="gpt-4o"),
+        llm=OpenAI(model="gpt-4o-mini"),
         system_prompt=system_prompt,
     )
 
@@ -294,7 +294,7 @@ def continuation_agent_factory(state: dict) -> OpenAIAgent:
 
     return OpenAIAgent.from_tools(
         tools,
-        llm=OpenAI(model="gpt-4o",temperature=0.4),
+        llm=OpenAI(model="gpt-4o-mini",temperature=0.4),
         system_prompt=system_prompt,
     )
 
@@ -342,7 +342,7 @@ def orchestration_agent_factory(state: dict) -> OpenAIAgent:
 
     return OpenAIAgent.from_tools(
         tools,
-        llm=OpenAI(model="gpt-4o",temperature=0.4),
+        llm=OpenAI(model="gpt-4o-mini",temperature=0.4),
         system_prompt=system_prompt,
     )
 

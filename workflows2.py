@@ -18,7 +18,7 @@ from typing import Optional, List, Callable
 from llama_index.utils.workflow import draw_all_possible_flows
 from colorama import Fore, Back, Style
 
-class InitializeEvent(Event):
+class InitializeEventGGG(Event):
     pass
 
 class ConciergeEvent(Event):
@@ -44,7 +44,7 @@ class TransferMoneyEvent(Event):
 class ConciergeWorkflow(Workflow):
 
     @step(pass_context=True)
-    async def initialize(self, ctx: Context, ev: InitializeEvent) -> ConciergeEvent:
+    async def initialize(self, ctx: Context, ev: InitializeEventGGG) -> ConciergeEvent:
         ctx.data["user"] = {
             "username": None,
             "session_token": None,
@@ -62,10 +62,10 @@ class ConciergeWorkflow(Workflow):
         return ConciergeEvent()
   
     @step(pass_context=True)
-    async def concierge(self, ctx: Context, ev: ConciergeEvent | StartEvent) -> InitializeEvent | StopEvent | OrchestratorEvent:
+    async def concierge(self, ctx: Context, ev: ConciergeEvent | StartEvent) -> InitializeEventGGG | StopEvent | OrchestratorEvent:
         # initialize user if not already done
         if ("user" not in ctx.data):
-            return InitializeEvent()
+            return InitializeEventGGG()
         
         # initialize concierge if not already done
         if ("concierge" not in ctx.data):
@@ -453,13 +453,14 @@ class ConciergeAgent():
         user_msg_str = input("> ").strip()
         return self.trigger_event(request=user_msg_str)
 
-draw_all_possible_flows(ConciergeWorkflow,filename="concierge_flows.html")
+draw_all_possible_flows(ConciergeWorkflow,filename="concierge_flows1.html")
 
 async def main():
     c = ConciergeWorkflow(timeout=1200, verbose=True)
     result = await c.run()
     print(result)
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
+"""
