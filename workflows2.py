@@ -15,7 +15,7 @@ from llama_index.core.agent import FunctionCallingAgentWorker
 from llama_index.core.tools import FunctionTool
 from enum import Enum
 from typing import Optional, List, Callable
-from llama_index.utils.workflow import draw_all_possible_flows
+from llama_index.utils.workflow import draw_all_possible_flows, draw_most_recent_execution
 from colorama import Fore, Back, Style
 
 class InitializeEventGGG(Event):
@@ -453,14 +453,39 @@ class ConciergeAgent():
         user_msg_str = input("> ").strip()
         return self.trigger_event(request=user_msg_str)
 
-draw_all_possible_flows(ConciergeWorkflow,filename="concierge_flows1.html")
+
 
 async def main():
     c = ConciergeWorkflow(timeout=1200, verbose=True)
     result = await c.run()
     print(result)
+    #draw_most_recent_execution(c,filename="execution_concierge.html")
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
-"""
+
+""" 
+    #@step(pass_context=True)
+    async def continue_func(self, ctx: Optional[Context], message: str) -> Context:
+
+        # initialize user if not already done
+        if ("user" not in ctx.data):
+            return InitializeEvent()
+
+        if ctx.data.get('awaiting_user_input'):
+            ctx.data['awaiting_user_input'] = False
+            ctx.data['user_input'] = message
+            return await self.orchestrator(ctx, OrchestratorEvent(request=message))
+
+        # Continue processing the current event
+        current_event = ctx.data.get('current_event')
+        if current_event:
+            if isinstance(current_event, ConciergeEvent):
+                return await self.concierge(ctx, current_event)
+            elif isinstance(current_event, OrchestratorEvent):
+                return await self.orchestrator(ctx, current_event)
+        
+        # If there's no event, start from the beginning
+        return await self.concierge(ctx, StartEvent())
+ """
