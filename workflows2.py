@@ -84,7 +84,8 @@ class ConciergeWorkflow(Workflow):
                 tools=[],
                 llm=ctx.data["llm"],
                 allow_parallel_tool_calls=False,
-                system_prompt=system_prompt
+                system_prompt=system_prompt,
+                verbose=True
             )
             ctx.data["concierge"] = agent_worker.as_agent()        
 
@@ -171,7 +172,8 @@ class ConciergeWorkflow(Workflow):
             tools=tools,
             llm=ctx.data["llm"],
             allow_parallel_tool_calls=False,
-            system_prompt=system_prompt
+            system_prompt=system_prompt,
+            verbose=True
         )
         ctx.data["orchestrator"] = agent_worker.as_agent()        
         
