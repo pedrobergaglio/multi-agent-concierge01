@@ -1,0 +1,28 @@
+name: QuickStart
+
+control-plane:
+  port: 8000
+
+default-service: agent1_workflow
+
+services:
+  agent1_workflow:
+    name: Agent1
+    source:
+      type: local
+      name: src
+    path: agent1:agent1_workflow
+
+  agent2_workflow:
+    name: Agent2
+    source:
+      type: local
+      name: src
+    path: agent2:agent2_workflow
+
+  authenticate_workflow:
+    name: AuthenticateAgent
+    source:
+      type: local
+      name: src
+    path: authenticate_agent:authenticate_workflow
